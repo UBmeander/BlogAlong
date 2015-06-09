@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Blogs</h1>
+
+<div class="row">
+  <% @blogs.each do |blog| %>
+  <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel panel-heading">
+          <%= link_to blog.title, blog %>
+        </div>
+        <div class="panel-body">
+        by <%= blog.user.name %><br />
+        <p><em><span class="posted at">posted at: <%= blog.created_at.strftime('%y/%m/%d at %H:%M:') %></span></em></p>
+
+        <p><%= blog.blog_text[0..250] %>...[<%= link_to "Read More", blog %>]</p>
+      </div>
+      <div class="panel-footer">
+        <%= link_to "Edit", edit_blog_path(blog), class: "btn btn-warning" %>
+        <%= link_to "Destroy", blog, method: :delete, date: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<br>
+
+<%= link_to 'New Blog', new_blog_path %>
+
+<%= will_paginate @blogs %>
